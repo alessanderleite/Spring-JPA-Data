@@ -2,7 +2,6 @@ package br.com.alessander.spring;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,27 +21,15 @@ public class CustomerService {
 		
 		// Find a customer by ID
 		Optional<Customer> result = repository.findById(1L);
-		result.ifPresent(new Consumer<Customer>() {
-			public void accept(Customer customer) {
-				System.out.println(customer);
-			}
-		});
-		
+		result.ifPresent(customer -> System.out.println(customer));
+				
 		// Find customers by last name
 		List<Customer> customers = repository.findByLastName("Leite");
-		customers.forEach(new Consumer<Customer>() {
-			public void accept(Customer customer) {
-				System.out.println(customer);
-			}
-		});
+		customers.forEach(customer -> System.out.println(customer));
 		
 		// List all customers
 		Iterable<Customer> iterator = repository.findAll();
-		iterator.forEach(new Consumer<Customer>() {
-			public void accept(Customer customer) {
-				System.out.println(customer);
-			}
-		});
+		iterator.forEach(customer -> System.out.println(customer));
 		
 		// Count number of customer
 		long count = repository.count();
